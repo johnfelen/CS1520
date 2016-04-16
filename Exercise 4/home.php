@@ -3,23 +3,13 @@
     if( isset( $_SESSION[ "currUser" ] ) )
     {
         $currUser = $_SESSION[ "currUser" ];
-        if( isset( $_SESSION[ $currUser ] ) && $_SESSION[ $currUser ] === true )    //the true is since I set two session variables earlier
-        {
-            echo "Welcome {$currUser} to Exercise 4's site";
-        }
-        
-        else    //the two elses are for the failing either of the session variable checks
-        {
-            $_SESSION[ "error" ] = "You have not logged in.  Please log in first.";
-            exec('php login.php &> /dev/null &');
-            die();
-        }
+        unset( $_SESSION[ "currUser" ] );   //the site logs them out if they leave the webpage
     }
-    
+
     else
     {
         $_SESSION[ "error" ] = "You have not logged in.  Please log in first.";
-        exec('php login.php &> /dev/null &');
+        header( "Location: login.php" );
         die();
     }
 ?>
@@ -28,6 +18,11 @@
 <html>
     <head>
     </head>
-    <body>
+    <body style="color:yellow; background-color:lightblue;">
+        <div align="center">
+            <?php
+                echo "{$currUser}, Welcome to Exercise 4's site.";
+            ?>
+        </div>
     </body>
 </html>
