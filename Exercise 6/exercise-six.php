@@ -15,7 +15,7 @@
 
                 <p>Enter A Computer Science Course To Search: </p>
                 <input type="text" placeholder="Enter Course Here" id="course" name="course">
-                <button onclick="checkForm()" style="color:white; background-color:red;"> Submit </button>
+                <button type="submit" value="submit" style="color:white; background-color:red;"> Submit </button>
             </form>
         </div>
 
