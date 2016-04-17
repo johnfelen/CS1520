@@ -27,27 +27,8 @@
                 xhttp.onload = function()
                 {
                     parseXML( xhttp );
-
-                    var displayHTML = "";    //will be used all the HTML to concatenate all the problems and then change the innerHTML
-                    for( var i = 0; i < problems.length; i++ )
-                    {
-                        var currProblem = "<div align=\"center\" id=\"problem" + i + "\">";
-                        currProblem += problems[ i ].getQuestion();
-
-                        //add all the answers to a select element that is inside currProblem div
-                        var answers = problems[ i ].getAnswers();
-                        currProblem += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select>";
-                        for( var e = 0; e < answers.length; e++ )
-                        {
-                            currProblem += "<option value=\"" + answers[ e ] + "\">" + answers[ e ] + "</option>"
-                        }
-                        currProblem += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-
-                        currProblem += "<button type=\"button\" id=\"question\"" + i + " style=\"color:gray;\"> Answer Question! </button></div><br>";
-                        displayHTML += currProblem;
-                    }
-
-                    $( "#problems" ).html( displayHTML );
+                    addProbsToDOM();
+                    addClickListeners();
                 }
             }
 
@@ -63,20 +44,58 @@
 
                     var currAnswers = new Array();
                     var numAns = problemsInXML[ i ].getElementsByTagName( "answer" ).length;
-                    var currCorrectAns;
-
                     for( var e = 0; e < numAns; e++ )
                     {
                         currAnswers[ e ] = problemsInXML[ i ].getElementsByTagName( "answer" )[ e ].childNodes[ 0 ].nodeValue;
-
-                        if( currAnswers[ e ] == problemsInXML[ i ].getElementsByTagName( "correct" )[ 0 ].childNodes[ 0 ].nodeValue )
-                        {
-                            currCorrectAns = e;
-                        }
                     }
+                    var currCorrectAns = problemsInXML[ i ].getElementsByTagName( "correct" )[ 0 ].childNodes[ 0 ].nodeValue;
 
                     problems[ i ] = new Problem( currQuestion, currAnswers, currCorrectAns );
                 }
+            }
+
+            function addProbsToDOM()
+            {
+                var displayHTML = "";    //will be used all the HTML to concatenate all the problems and then change the innerHTML
+                for( var i = 0; i < problems.length; i++ )
+                {
+                    var currProblem = "<div align=\"center\">";
+                    currProblem += problems[ i ].getQuestion();
+
+                    //add all the answers to a select element that is inside currProblem div
+                    var answers = problems[ i ].getAnswers();
+                    currProblem += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id=\"answers" + i + "\">";
+                    for( var e = 0; e < answers.length; e++ )
+                    {
+                        currProblem += "<option value=\"" + answers[ e ] + "\">" + answers[ e ] + "</option>"
+                    }
+                    currProblem += "</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+                    currProblem += "<button type=\"button\" id=\"question" + i + "\" style=\"color:gray;\"> Answer Question! </button></div><br>";
+                    displayHTML += currProblem;
+                }
+
+                $( "#problems" ).html( displayHTML );
+            }
+
+            function addClickListeners()
+            {
+                //I based the regex to get the correct index for the question the button was related to from the second last answer on http://stackoverflow.com/questions/15979264/jquery-loop-through-selectors-and-click-event-handler, for some reason a normal for loop would not give the correct index of the dynamically created ids and just give 3 as the index
+                $( "[id^=question]" ).each( function( i )
+                {
+                    $( this ).click( function()
+                    {
+                        if( $( "#answers" + i ).val() == problems[ i ].getCorrectAnswer() )
+                        {
+                            console.log( true );
+                        }
+
+                        else
+                        {
+                            console.log( false );
+                        }
+                    });
+                });
             }
         </script>
     </body>

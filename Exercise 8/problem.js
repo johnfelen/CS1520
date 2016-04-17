@@ -2,11 +2,11 @@ function Problem( question, answers, correctAnswer )
 {
     this.question = question;
     this.answers = answers;
-    this.correctAnswerIndex = correctAnswer;
+    this.correctAnswer = correctAnswer;
 
     this.getQuestion = getQuestion;
     this.getAnswers = getAnswers;
-    this.getCorrectAnsIndex = getCorrectAnsIndex;
+    this.getCorrectAnswer = getCorrectAnswer;
 
     function getQuestion()
     {
@@ -18,8 +18,8 @@ function Problem( question, answers, correctAnswer )
         return answers;
     }
 
-    function getCorrectAnsIndex()
+    function getCorrectAnswer()
     {
-        return correctAnswerIndex;
+        return correctAnswer;
     }
 }
