@@ -19,15 +19,17 @@
             {
                 if( !dataDownloaded )
                 {
-                    $.ajax( { url: './getData.php',
-                            type: "POST",
-                            data: { "file" : "file1.txt" },
-                            success: function( data )
-                                    {
-                                        dataDownloaded = true;
-                                        document.getElementById( "dataDisplay" ).innerHTML = data;
-                                    }
-                            });
+                    $.ajax( 
+                    {
+                        url: './getData.php',
+                        type: "POST",
+                        data: { "file" : "file1.txt" },
+                        success: function( data )
+                        {
+                            dataDownloaded = true;
+                            document.getElementById( "dataDisplay" ).innerHTML = data;
+                        }
+                    });
                 }
 
                 else
