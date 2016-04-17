@@ -7,17 +7,14 @@
 
     <body style="color:gray; background-color:lightblue;">
         <br><br>
-        <div align="center">
-            <button onclick="displayQuiz()" value="Display Quiz" type="button" style="color:gray;"> Display Quiz </button>
-        </div>
-        <br>
-
         <div align="center" id="problems">
-
+            <button onclick="displayQuiz()" value="Display Quiz" type="button" style="color:gray;"> Display Quiz </button>
         </div>
 
         <script>
             var problems = new Array();
+            var score = 0;
+
             function displayQuiz()
             {
                 var xhttp = new XMLHttpRequest();
@@ -75,24 +72,30 @@
                     displayHTML += currProblem;
                 }
 
+                displayHTML += "<p align=\"center\" id=\"score\"> Your Score: 0 </p>";
                 $( "#problems" ).html( displayHTML );
             }
 
             function addClickListeners()
             {
-                //I based the regex to get the correct index for the question the button was related to from the second last answer on http://stackoverflow.com/questions/15979264/jquery-loop-through-selectors-and-click-event-handler, for some reason a normal for loop would not give the correct index of the dynamically created ids and just give 3 as the index
+                //based the regex to get the correct index for the question the button was related to from the second last answer on http://stackoverflow.com/questions/15979264/jquery-loop-through-selectors-and-click-event-handler, for some reason a normal for loop would not give the correct index of the dynamically created ids and just give 3 as the index
                 $( "[id^=question]" ).each( function( i )
                 {
                     $( this ).click( function()
                     {
-                        if( $( "#answers" + i ).val() == problems[ i ].getCorrectAnswer() )
+                        var currAns = $( "#answers" + i );
+                        if( currAns.val() == problems[ i ].getCorrectAnswer() ) //they got the question correct let them know and they cannot reanswer the question or select other answers
                         {
-                            console.log( true );
+                            score++;
+                            $( "#score" ).html( "Your Score: " + score );
+                            currAns.replaceWith( "<span style=\"color:black;\"> You answered: " + currAns.val() + " </span>" );
+                            $( this ).replaceWith( "<span style=\"color:green;\"> You got the question correct! </span>" );
                         }
 
                         else
                         {
-                            console.log( false );
+                            currAns.replaceWith( "<span style=\"color:black;\"> You answered: " + currAns.val() + " </span>" );
+                            $( this ).replaceWith( "<span style=\"color:red;\"> You got the question wrong! </span>" );
                         }
                     });
                 });
