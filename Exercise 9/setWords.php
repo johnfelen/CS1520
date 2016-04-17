@@ -1,20 +1,20 @@
 <?php
 
-  $db = new mysqli('localhost', 'name', $passwd, 'name');
+  $db = new mysqli('localhost', 'root', 'jfelen62', 'exercises');
 
-  if ($db->connect_error): 
-    die ("Could not connect to db " . $db->connect_error); 
+  if ($db->connect_error):
+    die ("Could not connect to db " . $db->connect_error);
   endif;
 
-  $db->query("drop table Words2"); 
+  $db->query("drop table Words2");
   $result = $db->query("create table Words2 (id int primary key not null auto_increment, word varchar(30) not null)") or die ("Invalid: " . $db->error);
 
   $fp = fopen("testwords.txt", "r");
   while ($currword = fgets($fp, 80)):
     $currword = rtrim($currword);
-    $query = "insert into Words2 values (NULL, '$currword')"; 
+    $query = "insert into Words2 values (NULL, '$currword')";
     echo "$query<br/>";
-    $db->query($query) or die ("Invalid insert " . $db->error); 
+    $db->query($query) or die ("Invalid insert " . $db->error);
   endwhile;
 ?>
 <!doctype html>
@@ -27,4 +27,4 @@
     echo "Words should be set up properly";
   ?>
   </body>
-</html> 
+</html>

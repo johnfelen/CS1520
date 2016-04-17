@@ -1,7 +1,7 @@
 <?php
   // Simple script to retrieve a random word from the database in XML
-  // format and return it to the requestor. 
-  $db = new mysqli('localhost', 'name', "$passwd", 'name');
+  // format and return it to the requestor.
+  $db = new mysqli('localhost', 'root', 'jfelen62', 'exercises');
   if ($db->connect_error):
     die ("Could not connect to db " . $db->connect_error);
   endif;
