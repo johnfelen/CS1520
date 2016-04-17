@@ -1,7 +1,14 @@
+button {
+  font-family: "Verdana",sans-serif;
+  background-color: Yellow;
+  color: Plum;
+}
+
 body {
-  font-family: Verdana, sans-serif; 
+  font-family: Verdana, sans-serif;
   font-size: 14px;
   text-align: center;
+  background-color: Plum;
 }
 
 h2 {
@@ -14,7 +21,9 @@ h2 {
 
 th {
   padding: 4px 8px;
-  color: Indigo;
+  color: Grey;
+  background-color: Yellow;
+  color: Plum;
 }
 
 td {
@@ -23,6 +32,8 @@ td {
   font-size: 13px;
   border-style: solid;
   border-width: 2px;
+  background-color: Grey;
+  color: Yellow;
 }
 
 .title {
