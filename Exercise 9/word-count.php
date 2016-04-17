@@ -12,7 +12,7 @@
         </div>
         <br>
 
-        <table align="center">
+        <table align="center" id="table">
             <tr>
                 <th> Word </th>
                 <th> Count </th>
@@ -46,19 +46,23 @@
                         dataType: "xml",
                         success: function( data )
                         {
-                            var currWord = data.getElementsByTagName( "value" )[ 0 ].childNodes[ 0 ].nodeValue;
-
-                            if( !hashMap[ currWord ] )
-                            {
-                                hashMap[ currWord ] = 1;
-                            }
-
-                            else
-                            {
-                                hashMap[ currWord ]++;
-                            }
+                            updateTable( data.getElementsByTagName( "value" )[ 0 ].childNodes[ 0 ].nodeValue );
                         }
                     });
+                }
+
+                function updateTable( currWord )
+                {
+                    if( !hashMap[ currWord ] )
+                    {
+                        hashMap[ currWord ] = 0;    //initialize with zero first because outside of the if statement will not care whether or not the word is new, so new words will be displayed with 1
+                        $( "#table tr:last" ).after( "<tr>" +
+                                "<td>" + currWord + "</td><td id=\"" + currWord + "\"></td>" +
+                            "</tr>" );
+                    }
+
+                    hashMap[ currWord ]++;
+                    $( "#" + currWord ).html( hashMap[ currWord ] );
                 }
             }
         </script>
