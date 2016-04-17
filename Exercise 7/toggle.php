@@ -21,7 +21,7 @@
                 {
                     $.ajax( 
                     {
-                        url: './getData.php',
+                        url: "./getData.php",
                         type: "POST",
                         data: { "file" : "file1.txt" },
                         success: function( data )
