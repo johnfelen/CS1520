@@ -1,5 +1,5 @@
 <?php
-    $exerciseFiveDB = new mysqli( "localhost", "root", "jfelen62", "exercise five" );
+    $exerciseFiveDB = new mysqli( "localhost", "root", "jfelen62", "exercises" );
     if( $exerciseFiveDB->connect_error )
     {
         die( "Error connecting to database" );
